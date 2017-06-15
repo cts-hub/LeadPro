@@ -1,0 +1,203 @@
+<?= $this->getContent() ?>
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-3 col-xs-6">
+            <h3>Параметры</h3>
+            <input id="toggle_country_region" type="checkbox" checked data-toggle="toggle" data-on="Страны"
+                   data-off="Регионы" data-onstyle="info" data-offstyle="warning">
+
+            <button class="btn btn-primary btn-md" data-toggle="modal" data-target="#myModalNorm">
+                Новый покупатель
+            </button>
+            <hr>
+
+			<?= $this->tag->form(["export/export"]) ?>
+            <div id="export_data" class="btn btn-danger btn-md">Отчет</div>
+			<?= $this->tag->hiddenField(["bayer_id", "class" => "form-control", "type" => "hidden", "value" => $bayer_id]) ?>
+			<?= $this->tag->hiddenField(["cnt_number", "class" => "form-control", "type" => "hidden", "value" => $cnt_number]) ?>
+			<?= $this->tag->hiddenField(["country", "class" => "form-control", "type" => "hidden", "value" => $country]) ?>
+			<?= $this->tag->hiddenField(["region_type", "class" => "form-control", "type" => "hidden", "value" => $region_type]) ?>
+			<?= $this->tag->submitButton(["Экспортировать", "class" => "btn btn-primary btn-md", "id" => "exampleInputFile"]) ?>
+			<?= $this->tag->endForm() ?>
+            <hr>
+			<?= $this->tag->form(["export/api"]) ?>
+            <select name="buyer" class="form-control" id="buyer">
+		        <?php
+
+			        echo "<option name='vasya' value='vasya'>vasya</option>";
+			        echo "<option name='petya' value='vasya'>petya</option>";
+			        echo "<option name='grisha' value='vasya'>grisha</option>";
+		        ?>
+            </select>
+            <br>
+			<?= $this->tag->hiddenField(["bayer_id", "class" => "form-control", "type" => "hidden", "value" => $bayer_id]) ?>
+			<?= $this->tag->hiddenField(["cnt_number", "class" => "form-control", "type" => "hidden", "value" => $cnt_number]) ?>
+			<?= $this->tag->hiddenField(["country", "class" => "form-control", "type" => "hidden", "value" => $country]) ?>
+			<?= $this->tag->hiddenField(["region_type", "class" => "form-control", "type" => "hidden", "value" => $region_type]) ?>
+			<?= $this->tag->submitButton(["Передать через API", "class" => "btn btn-primary btn-lg", "id" => "sendApi"]) ?>
+			<?= $this->tag->endForm() ?>
+
+        </div>
+        <div class="col-md-3 col-xs-6">
+            <h3>Выбор</h3>
+			<?= $this->tag->form(["export/index"]) ?>
+            <select name="country[]" id="country" class="multiselect" multiple="multiple">
+				<?php
+				foreach ($arr_option_country as $key => $value) {
+					echo "<option name='{$value['country']}' value='{$value['isocode']}'>" . $value['country'] . '</option>';
+				}
+				?>
+            </select>
+            <div class="form-group">
+                <select name="region[]" class="multiselect1" multiple="multiple" id="region">
+					<?php
+					foreach ($arr_option_regions as $key => $value) {
+						echo "<option name='{$value['region']}' value='{$value['region']}'>" . $value['region'] . '</option>';
+					}
+					?>
+                </select>
+            </div>
+            <hr>
+            <label for="buyer">Количество</label>
+            <div class="form-group">
+                <input type="number" name="cnt_number" class="form-control" id="cnt_number" placeholder="Количество"
+                       value="50">
+            </div>
+            <label for="buyer">Покупатель</label>
+            <select name="buyer" class="form-control" id="buyer">
+				<?php
+				foreach ($arr_option_buyers as $key => $value) {
+					echo "<option name='{$value['buyername']}' value='{$value['buyerid']}'>" . $value['buyername'] . '</option>';
+				}
+				?>
+            </select>
+            <label for="sales">Продавец</label>
+            <select name="sales" class="form-control" id="sales">
+				<?php
+				foreach ($sellers as $key => $value) {
+					echo "<option name='{$value['sellername']}' value='{$value['sellerid']}'>" . $value['sellername'] . '</option>';
+				}
+				?>
+            </select>
+            <label for="saleslist">Покупки</label>
+            <select name="saleslist" class="form-control" id="saleslist">
+				<?php
+				foreach ($purchases as $key => $value) {
+					echo "<option name='{$value['sellername']}' value='{$value['purchaseid']}'>" . $value['purchaseid'] . " " . $value['description'] . ' from ' . $value['sellername'] . '</option>';
+				}
+				?>
+            </select>
+            <br>
+			<?= $this->tag->submitButton(["Показать", "class" => "btn btn-primary", "id" => "preview"]) ?>
+			<?= $this->tag->endForm() ?>
+        </div>
+        <div class="col-md-6 col-xs-12">
+            <h3>Отчет</h3>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <tr class="text-center">
+                        <th class="text-center">Регион</th>
+                        <th class="text-center">Продано</th>
+                        <th class="text-center">Доступно</th>
+                        <th class="text-center">Всего</th>
+                    </tr>
+					<?php
+					foreach ($arr_buyers_preview as $arrs) {
+						echo '<tr>';
+						foreach ($arrs as $k => $v) {
+							echo '<td>' . $v . '</td>';
+						}
+						echo '</tr>';
+					}
+					?>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <br>
+        <hr>
+        <div class="col-md-12 col-xs-12">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>Lead-ID</th>
+                        <th>Имя</th>
+                        <th>Фамилия</th>
+                        <th>Код страны</th>
+                        <th>Телефон</th>
+                        <th>Email</th>
+                        <th>№ покупки</th>
+                    </tr>
+					<?php
+					foreach ($leads as $arrrs) {
+						echo '<tr>';
+						foreach ($arrrs as $k => $v) {
+							echo "<td>" . $v . "</td>";
+						}
+						echo '</tr>';
+					}
+					?>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<?= $this->partial('partial/modal') ?>
+<script>var user_name =<?=$user_name;?>;</script>
+<script>var json_option_export =<?=$json_option_export;?>;</script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/noty.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.multiselect').multiselect({
+            buttonClass: 'btn btn-success',
+            numberDisplayed: 3,
+            includeSelectAllOption: true,
+            enableFiltering: true
+        });
+        $('.multiselect1').multiselect({
+            buttonClass: 'btn btn-success',
+            numberDisplayed: 3,
+            includeSelectAllOption: true,
+            enableFiltering: true,
+            nonSelectedText: 'Выберите Регион'
+        });
+    });
+</script>
+
+<script>
+    /*WELCOM NOTY*/
+    if (user_name) {
+        new Noty({
+            type: 'info',
+            layout: 'Bottomleft',
+            theme: 'mint',
+            text: 'Добро пожаловать ' + user_name,
+            timeout: 2000,
+            progressBar: true,
+            closeWith: ['click', 'button'],
+            animation: {
+                open: 'noty_effects_open',
+                close: 'noty_effects_close'
+            },
+            id: false,
+            force: false,
+            killer: false,
+            queue: 'global',
+            container: false,
+            buttons: [],
+            sounds: {
+                sources: [],
+                volume: 1,
+                conditions: []
+            },
+            titleCount: {
+                conditions: []
+            },
+            modal: false
+        }).show();
+    }
+</script>

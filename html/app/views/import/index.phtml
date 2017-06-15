@@ -1,0 +1,45 @@
+<?= $this->getContent() ?>
+<?php
+$json_option_import = json_encode($file_import_info);
+?>
+<script>var json_option_import =<?=$json_option_import;?>;</script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/noty.min.js"></script>
+
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-6">
+			<?= $this->tag->form(["import/index", "enctype" => "multipart/form-data"]) ?>
+            <div class="form-group">
+                <label for="sales">Продавец:</label>
+                <select name="sales" class="form-control" id="sales">
+					<?php
+					foreach ($sellers as $key => $value) {
+						echo "<option name='{$value['sellername']}' value='{$value['sellerid']}'>" . $value['sellername'] . '</option>';
+					}
+					?>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="file" name="impFile" class="btn btn-success btn-md" id="impFile">
+            </div>
+            <div id="import_data" class="btn btn-danger btn-md">Отчет</div>
+			<?= $this->tag->submitButton(["Импортировать", "class" => "btn btn-primary btn-md", "id" => "fileImp"]) ?>
+			<?= $this->tag->endForm() ?>
+        </div>
+        <div class="col-md-6">
+			<?= $this->tag->form(["import/index"]) ?>
+            <div class="form-group">
+                <label for="email">Имя:</label>
+				<?= $this->tag->textField(["addsales", "class" => "form-control", "placeholder" => "sales_add"]) ?>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Описание:</label>
+				<?= $this->tag->textField(["salesdescr", "class" => "form-control", "placeholder" => "sales_desc"]) ?>
+            </div>
+			<?= $this->tag->submitButton(["Добавить", "class" => "btn btn-primary", "id" => "addSales"]) ?>
+			<?= $this->tag->endForm() ?>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+<?= $this->getContent() ?>
+<?php
+$json_option_import = json_encode($file_import_info);
+?>
+<script>var json_option_import =<?=$json_option_import;?>;</script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/noty.min.js"></script>
+<div class="container">
+	<br>
+	<div class="row">
+		<div class="col-md-6">
+			<?= $this->tag->form(["delayedimport/import", "enctype" => "multipart/form-data"]) ?>
+			<div class="form-group">
+				<label for="seller">Продавец:</label>
+				<select name="seller" class="form-control" id="seller">
+					<?php
+					foreach ($sellers as $key => $value) {
+						echo "<option name='{$value['sellername']}' value='{$value['sellerid']}'>" . $value['sellername'] . '</option>';
+					}
+					?>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="pwd">Описание Покупки:</label>
+				<?= $this->tag->textField(["purchases_desc", "class" => "form-control", "placeholder" => "purchases_desc"]) ?>
+			</div>
+			<div class="form-group">
+				<input type="file" name="imptable" class="btn btn-success btn-md" id="imptable">
+			</div>
+            <div id="delayed_data" class="btn btn-danger btn-md">Отчет</div>
+			<?= $this->tag->submitButton(["Импортировать", "class" => "btn btn-primary btn-md", "id" => "imptable"]) ?>
+			<?= $this->tag->endForm() ?>
+		</div>
+		<div class="col-md-6">
+			<?= $this->tag->form(["delayedimport/download"]) ?>
+			<div class="form-group">
+				<label for="pwd">Покупки:</label>
+				<select name="saleslist" class="form-control" id="saleslist">
+					<?php
+					foreach ($purchases as $key => $value) {
+						echo "<option name='{$value['sellername']}' value='{$value['purchaseid']}'>" . $value['purchaseid'] . " " . $value['description'] . ' from ' . $value['sellername'] . '</option>';
+					}
+					?>
+				</select>
+			</div>
+			<?= $this->tag->submitButton(["Скачать", "class" => "btn btn-primary btn-md", "id" => "exampleInputFile"]) ?>
+			<?= $this->tag->endForm() ?>
+		</div>
+	</div>
+</div>

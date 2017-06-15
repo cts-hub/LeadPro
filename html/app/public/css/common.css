@@ -1,0 +1,10 @@
+#scroller {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background: transparent url(../img/icon-scroll-top.png) no-repeat left top;
+    width: 128px;
+    height: 128px;
+    cursor: pointer;
+    display: none;
+}

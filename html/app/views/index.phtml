@@ -1,0 +1,24 @@
+<?php use Phalcon\Tag as Tag; ?>
+<?= Tag::setDoctype(Tag::HTML5); ?>
+<html>
+<head>
+	<?= Tag::getTitle() ?>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<?= Tag::stylesheetLink('css/bootstrap.min.css') ?>
+	<?= Tag::stylesheetLink('css/bootstrap-toggle.min.css') ?>
+	<?= Tag::stylesheetLink('css/bootstrap-multiselect.css') ?>
+	<?= Tag::stylesheetLink('css/noty.css') ?>
+	<?= Tag::stylesheetLink('css/common.css') ?>
+</head>
+<body>
+<?= $this->getContent() ?>
+<?= Tag::javascriptInclude('js/jquery.min.js') ?>
+<?= Tag::javascriptInclude('js/bootstrap.js') ?>
+<?= Tag::javascriptInclude('js/bootstrap-toggle.min.js') ?>
+<?= Tag::javascriptInclude('js/bootstrap-multiselect.js') ?>
+<?//= Tag::javascriptInclude('js/multiselect.setting.js') ?>
+<?= Tag::javascriptInclude('js/noty.min.js') ?>
+<?= Tag::javascriptInclude('js/common.js') ?>
+<?= Tag::tagHtmlClose("body") ?>
+<?= Tag::tagHtmlClose("html") ?>

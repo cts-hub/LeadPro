@@ -1,0 +1,75 @@
+<?= $this->getContent() ?>
+<?php
+$json_option_import = json_encode($file_import_info);
+?>
+<script>var json_option_import =<?=$json_option_import;?>;</script>
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<script type="text/javascript" src="../js/noty.min.js"></script>
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-md-4">
+			<?= $this->tag->form(["tranzit/table", "enctype" => "multipart/form-data"]) ?>
+            <div class="form-group">
+                <label for="saller">Продавец:</label>
+                <select name="saller" class="form-control" id="saller">
+					<?php
+					foreach ($sellers as $key => $value) {
+						echo "<option name='{$value['sellername']}' value='{$value['sellerid']}'>" . $value['sellername'] . '</option>';
+					}
+					?>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Описание Покупки:</label>
+		        <?= $this->tag->textField(["purchases_desc", "class" => "form-control", "placeholder" => "purchases_desc"]) ?>
+            </div>
+            <div class="form-group">
+                <input type="file" name="imptable" class="btn btn-success btn-md" id="imptable">
+            </div>
+			<?= $this->tag->submitButton(["Импортировать", "class" => "btn btn-primary btn-md", "id" => "imptable"]) ?>
+			<?= $this->tag->endForm() ?>
+        </div>
+        <div class="col-md-4">
+			<?= $this->tag->form(["tranzit/campaign"]) ?>
+            <div class="form-group">
+                <label for="email">ID Компании:</label>
+				<?= $this->tag->textField(["campaign_id", "class" => "form-control", "placeholder" => "campaign_id", "type" => 'numeric']) ?>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Название Компании:</label>
+				<?= $this->tag->textField(["campaign_name", "class" => "form-control", "placeholder" => "campaign_name"]) ?>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Описание Компании:</label>
+				<?= $this->tag->textField(["campaign_desc", "class" => "form-control", "placeholder" => "campaign_desc"]) ?>
+            </div>
+			<?= $this->tag->submitButton(["Добавить", "class" => "btn btn-primary", "id" => "addSales"]) ?>
+			<?= $this->tag->endForm() ?>
+        </div>
+        <div class="col-md-4">
+			<?= $this->tag->form(["tranzit/api"]) ?>
+            <div class="form-group">
+                <label for="email">Компании:</label>
+                <select name="campaign" class="form-control" id="campaign">
+					<?php
+					foreach ($campaign as $key => $value) {
+						echo "<option name='{$value['campaign_name']}' value='{$value['campaign_id']}'>" . $value['campaign_name'] . " " . $value['campaign_desc'] . ' id ' . $value['campaign_id'] . '</option>';
+					}
+					?>
+                </select></div>
+            <div class="form-group">
+                <label for="pwd">Покупки:</label>
+                <select name="saleslist" class="form-control" id="saleslist">
+					<?php
+					foreach ($purchases as $key => $value) {
+						echo "<option name='{$value['sellername']}' value='{$value['purchaseid']}'>" . $value['purchaseid'] . " " . $value['description'] . ' from ' . $value['sellername'] . '</option>';
+					}
+					?>
+                </select>
+            </div>
+			<?= $this->tag->submitButton(["Экспортировать", "class" => "btn btn-primary btn-md", "id" => "exampleInputFile"]) ?>
+			<?= $this->tag->endForm() ?>
+        </div>
+    </div>
+</div>

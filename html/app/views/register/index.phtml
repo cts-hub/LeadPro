@@ -1,0 +1,32 @@
+<?= $this->getContent() ?>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3 col-md-2 col-xs-12"></div>
+        <div class="col-lg-6 col-md-8 col-xs-12">
+            <h2 class="text-center text-warning">Регистрация</h2>
+            <hr>
+			<?= $this->tag->form("register") ?>
+            <div class="form-group">
+				<?= $this->tag->textField(["name", "class" => "form-control", "placeholder" => "name"]) ?>
+            </div>
+            <div class="form-group">
+				<?= $this->tag->textField(["username", "class" => "form-control", "placeholder" => "username"]) ?>
+            </div>
+            <div class="form-group">
+				<?= $this->tag->textField(["email", "class" => "form-control", "placeholder" => "email"]) ?>
+            </div>
+            <div class="form-group">
+				<?= $this->tag->textField(["password", "class" => "form-control", "placeholder" => "password"]) ?>
+            </div>
+            <div class="form-group">
+				<?= $this->tag->textField(["repeatPassword", "class" => "form-control", "placeholder" => "repeatPassword"]) ?>
+            </div>
+            <div class="form-group text-right">
+				<?= $this->tag->submitButton(["Зарегистрироваться", "class" => "btn btn-primary"]) ?>
+            </div>
+			<?= Phalcon\Tag::tagHtmlClose("form", true) ?>
+        </div>
+        <div class="col-lg-3 col-md-2 col-xs-12"></div>
+    </div>
+</div>
+

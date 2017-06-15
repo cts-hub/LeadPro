@@ -1,0 +1,22 @@
+<?= $this->getContent() ?>
+<div class="container">
+    <div class="row">
+        <h3>Изменить данные аккаунта</h3>
+        <div class="col-md-4 col-md-offset-4">
+            <div class="profile left">
+				<?= $this->tag->form("index/profile") ?>
+                <div class="input">
+					<?= $this->tag->textField(["name", "class" => "form-control"]) ?>
+                </div>
+                <br>
+                <div class="input">
+					<?= $this->tag->textField(["email", "class" => "form-control"]) ?>
+                </div>
+                <br>
+                <input type="button" value="Обновить" class="btn btn-primary btn-large btn-info" ">
+                &nbsp;<?= $this->tag->linkTo("export/index", "Отмена") ?>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
